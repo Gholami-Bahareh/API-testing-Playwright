@@ -1,7 +1,7 @@
     const { test, expect } = require('@playwright/test');
     const { randomNumber , randomString , tokenGenerate } = require('../utils/reusableMethods');
 
-    test.only('Update booking: POST -> PUT -> GET flow with token',async({request})=>{
+    test('Update booking: POST -> PUT -> GET flow with token',async({request})=>{
         const postBody = {
                     firstname:randomString(5),
                     lastname:"ForTest",

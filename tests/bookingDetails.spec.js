@@ -1,20 +1,21 @@
 const { test, expect } = require('@playwright/test');
-const { BASE_URL  } = require('../config');
 
 test('GetBooking_StatusCode',async({request})=>{
-    const response = await request.get(`${BASE_URL}/booking/1`); ///asd how to have different ids
+    const response = await request.get('/booking/1'); ///asd how to have different ids
     expect(response.status()).toBe(200) 
 });
 
 test('GetBooking_ResponseContent',async({request})=>{
-    const response = await request.get(`${BASE_URL}/booking/1`);
+    const response = await request.get('/booking/1');
     const headers = response.headers();
     expect(headers['content-type']).toContain('application/json');
 });
 
 test('GetBooking_ResponseBodyStructure',async({request})=>{
     const id = 1
-    const response = await request.get(`${BASE_URL}/booking/${id}`);  
+    const response = await request.get(`/booking/${id}`);  //the best, scalable
+    // const response = await request.get('/booking/'+id); //ok but kind of old
+    // const response = await request.get('/booking/'+`${id}`); //the worst!
     const body = await response.json();
     // console.log(body);
     expect(body).toBeInstanceOf(Object);  //better than below one for API 
@@ -28,8 +29,8 @@ test('GetBooking_ResponseBodyStructure',async({request})=>{
     expect(body).toHaveProperty('bookingdates.checkout');
 });
 
-test.only('GetBooking_InvalidId_ShouldReturn404',async({request})=>{
-    const response = await request.get(`${BASE_URL}/booking/5689423`); 
+test('GetBooking_InvalidId_ShouldReturn404',async({request})=>{
+    const response = await request.get('/booking/5689423'); 
     const responseBody = await response.text();
     expect(response.status()).toBe(404) 
     //console.log(responseBody);

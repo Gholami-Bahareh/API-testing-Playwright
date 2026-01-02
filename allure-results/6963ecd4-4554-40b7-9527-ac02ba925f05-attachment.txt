@@ -1,0 +1,11 @@
+{
+  bookingid: 1630,
+  booking: {
+    firstname: 'owaet',
+    lastname: 'ForTest',
+    totalprice: 3946,
+    depositpaid: true,
+    bookingdates: { checkin: '2018-01-01', checkout: '2018-01-11' },
+    additionalneeds: 'Brunch'
+  }
+}

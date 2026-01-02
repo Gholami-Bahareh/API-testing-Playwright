@@ -1,18 +1,18 @@
 const { test, expect } = require('@playwright/test');
 
 test('GetBooking_StatusCode',async({request})=>{
-    const response = await request.get('/booking/1'); ///asd how to have different ids
+    const response = await request.get('/booking/11'); ///asd how to have different ids
     expect(response.status()).toBe(200) 
 });
 
 test('GetBooking_ResponseContent',async({request})=>{
-    const response = await request.get('/booking/1');
+    const response = await request.get('/booking/11');
     const headers = response.headers();
     expect(headers['content-type']).toContain('application/json');
 });
 
 test('GetBooking_ResponseBodyStructure',async({request})=>{
-    const id = 1
+    const id = 11
     const response = await request.get(`/booking/${id}`);  //the best, scalable
     // const response = await request.get('/booking/'+id); //ok but kind of old
     // const response = await request.get('/booking/'+`${id}`); //the worst!

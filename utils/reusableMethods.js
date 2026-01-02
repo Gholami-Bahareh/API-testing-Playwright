@@ -22,6 +22,13 @@ function randomNumber(qnt) {
 
 }
 
+async function tokenGenerate(request){
+    const response = await request.post('/auth', {
+        data: { username: "admin", password: "password123" }
+    });
+    const body = await response.json();
+    return body.token
+    };
 
 
-module.exports = { randomString, randomNumber };
+module.exports = { randomString, randomNumber, tokenGenerate };

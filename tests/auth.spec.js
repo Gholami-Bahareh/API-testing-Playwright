@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('auth',async({request})=>{
+test('should return auth token when credentials are valid',async({request})=>{
     const body = {
     "username" : "admin",
     "password" : "password123"

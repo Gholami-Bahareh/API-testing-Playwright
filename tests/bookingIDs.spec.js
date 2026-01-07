@@ -1,11 +1,11 @@
 const { test, expect } = require('@playwright/test');
 
-test('GetBookingIds_StatusCode',async({request})=>{
+test('should return 200 when getting all booking ids',async({request})=>{
     const response = await request.get('/booking');
     expect(response.status()).toBe(200)
 });
 
-test('GetBookingIds_ResponseBodyStructure',async({request})=>{
+test('should return a non-empty list of booking ids',async({request})=>{
     const response = await request.get('/booking');
     const body = await response.json();
     expect(Array.isArray(body)).toBe(true);
@@ -13,7 +13,7 @@ test('GetBookingIds_ResponseBodyStructure',async({request})=>{
     expect(body[0]).toHaveProperty('bookingid');
 });
 
-test('GetBookingIds_ResponseContent',async({request})=>{
+test('should return json content type when getting booking ids',async({request})=>{
     const response = await request.get('/booking');
     const headers = response.headers();
     // console.log(header);

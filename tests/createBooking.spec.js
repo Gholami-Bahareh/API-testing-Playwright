@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const { randomString , randomNumber } = require('../utils/reusableMethods');
 
-test('CreateBooking_ShouldReturnBookingIdAndBookingDetails',async({request})=>{
+test('should create booking and return booking id and details',async({request})=>{
     const body = {
                 firstname:randomString(5),
                 lastname:"ForTest",
@@ -33,7 +33,7 @@ test('CreateBooking_ShouldReturnBookingIdAndBookingDetails',async({request})=>{
 });
 
 
-test('CreateBooking_returns500ّorIncompleteRequestBody',async({request})=>{
+test('should return 500 when creating booking with incomplete request body',async({request})=>{
     const body = {
                 firstname:randomString(5),
                 bookingdates:{

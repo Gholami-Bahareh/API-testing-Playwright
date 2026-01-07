@@ -1,7 +1,7 @@
     const { test, expect } = require('@playwright/test');
     const { randomNumber , randomString , tokenGenerate } = require('../utils/reusableMethods');
 
-    test('should delete booking successfully with valid token',async({request})=>{
+    test('should delete booking when token is valid',async({request})=>{
         const postBody = {
                     firstname:randomString(5),
                     lastname:"ForTest",
@@ -32,7 +32,7 @@
 
     });
 
-    test.only('should delete booking unsuccessfully with invalid token',async({request})=>{
+    test.only('should return 403 when deleting booking with invalid token',async({request})=>{
         const postBody = {
                     firstname:randomString(5),
                     lastname:"ForTest",
@@ -61,7 +61,7 @@
 
     });
 
-    test.only('should not allow deleting an already deleted booking',async({request})=>{
+    test.only('should return 405 when deleting an already deleted booking',async({request})=>{
         const postBody = {
                     firstname:randomString(5),
                     lastname:"ForTest",

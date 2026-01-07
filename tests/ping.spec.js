@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('API alive',async({request})=>{
+test('should return 201 when api health check is called',async({request})=>{
     const response = await request.get('/ping');
     expect(response.status()).toBe(201)
 });

@@ -1,16 +1,9 @@
     const { test, expect } = require('@playwright/test');
     const { randomNumber , randomString , tokenGenerate } = require('../utils/reusableMethods');
+    const { createValidBooking } = require('../test-data/test-data');
 
-    test('should delete booking when token is valid',async({request})=>{
-        const postBody = {
-                    firstname:randomString(5),
-                    lastname:"ForTest",
-                    totalprice:randomNumber(4),
-                    depositpaid:true,
-                    bookingdates:{
-                        checkin:"2018-08-08",
-                        checkout:"2018-08-18"
-                    }}
+    test.only('should delete booking when token is valid',async({request})=>{
+        const postBody = createValidBooking();
 
         const postResponse = await request.post('/booking', {data: postBody}); 
         expect(postResponse.status()).toBe(200); 
@@ -33,16 +26,7 @@
     });
 
     test.only('should return 403 when deleting booking with invalid token',async({request})=>{
-        const postBody = {
-                    firstname:randomString(5),
-                    lastname:"ForTest",
-                    totalprice:randomNumber(4),
-                    depositpaid:true,
-                    bookingdates:{
-                        checkin:"2018-08-08",
-                        checkout:"2018-08-18"
-                    }}
-
+        const postBody = createValidBooking();
         const postResponse = await request.post('/booking', {data: postBody}); 
         expect(postResponse.status()).toBe(200); 
         const postResponseBody = await postResponse.json();
@@ -62,15 +46,7 @@
     });
 
     test.only('should return 405 when deleting an already deleted booking',async({request})=>{
-        const postBody = {
-                    firstname:randomString(5),
-                    lastname:"ForTest",
-                    totalprice:randomNumber(4),
-                    depositpaid:true,
-                    bookingdates:{
-                        checkin:"2018-08-08",
-                        checkout:"2018-08-18"
-                    }}
+        const postBody = createValidBooking();
 
         const postResponse = await request.post('/booking', {data: postBody}); 
         expect(postResponse.status()).toBe(200); 

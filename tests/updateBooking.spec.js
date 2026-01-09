@@ -1,16 +1,9 @@
     const { test, expect } = require('@playwright/test');
     const { randomNumber , randomString , tokenGenerate } = require('../utils/reusableMethods');
+    const { createValidBooking } = require('../test-data/test-data');
 
-    test('should update booking successfully using valid token',async({request})=>{
-        const postBody = {
-                    firstname:randomString(5),
-                    lastname:"ForTest",
-                    totalprice:randomNumber(4),
-                    depositpaid:true,
-                    bookingdates:{
-                        checkin:"2018-01-01",
-                        checkout:"2018-01-11"
-                    }}
+    test.only('should update booking successfully using valid token',async({request})=>{
+        const postBody = createValidBooking();
 
         const postResponse = await request.post('/booking', {data: postBody}); 
         expect(postResponse.status()).toBe(200); 

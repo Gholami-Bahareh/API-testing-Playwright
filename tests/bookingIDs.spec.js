@@ -16,9 +16,11 @@ test('should return a non-empty list of booking ids',async({request})=>{
 test('should return json content type when getting booking ids',async({request})=>{
     const response = await request.get('/booking');
     const headers = response.headers();
-    // console.log(header);
-    // console.log(header['content-type']);
-    expect(headers['content-type']).toContain('application/json');
+    expect(typeof headers).toBe('object');
+    console.log(headers);
+    expect(headers['content-type']).toContain('application/json'); 
+    //I verify that the API response is returned as JSON.
+    //«این endpoint قول داده جوابش JSON باشه یا نه؟» 
 });
 
 

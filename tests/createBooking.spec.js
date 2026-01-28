@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const { randomString , randomNumber } = require('../utils/reusableMethods');
 const { createValidBooking , createIncompeleteBooking } = require('../test-data/test-data');
 
-test('should create booking and return booking id and details',async({request})=>{
+test.only('should create booking and return booking id and details',async({request})=>{
     const body = createValidBooking();
 //  const response = await request.post(`${BASE_URL}/booking`, {data: requestBody});
     const response = await request.post('/booking', {data: body}); 
@@ -21,6 +21,12 @@ test('should create booking and return booking id and details',async({request})=
     expect(responseBody).toHaveProperty('booking.bookingdates.checkin');
     expect(responseBody).toHaveProperty('booking.bookingdates.checkout');
     expect(responseBody).toHaveProperty('booking.additionalneeds');
+    expect(responseBody.booking.firstname).toBe(body.firstname);
+    expect(responseBody.booking.totalprice).toBe(body.totalprice);
+    expect(responseBody.booking.bookingdates.checkout).toBe(body.bookingdates.checkout);
+    expect(typeof responseBody.booking.totalprice).toBe('number');
+    expect(typeof responseBody.booking.depositpaid).toBe('boolean');
+    expect(typeof responseBody.booking.firstname).toBe('string');
 
 });
 

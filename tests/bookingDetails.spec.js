@@ -11,7 +11,7 @@ test    ('should return 200 when getting an existing booking by id',async({reque
     expect(response.status()).toBe(200) 
 });
 
-test.only('should return json content type when getting a booking',async({request})=>{
+test('should return json content type when getting a booking',async({request})=>{
     const body = createValidBooking();
     const postResponse = await request.post('/booking', {data: body});
     const postResponseBody = await postResponse.json();
@@ -21,7 +21,7 @@ test.only('should return json content type when getting a booking',async({reques
     expect(headers['content-type']).toContain('application/json');
 });
 
-test.only('should return booking details with correct structure when booking exists',async({request})=>{
+test('should return booking details with correct structure when booking exists',async({request})=>{
     const id = 11
     const response = await request.get(`/booking/${id}`);  //the best, scalable
     // const response = await request.get('/booking/'+id); //ok but kind of old

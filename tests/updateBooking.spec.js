@@ -38,6 +38,7 @@
 
         const getAfterPutResponse =await request.get(`/booking/${id}`);
         const putResponseBody = await getAfterPutResponse.json();
+        expect(putResponseBody.firstname).toBe('666');
         console.log(putResponseBody);
     });
 

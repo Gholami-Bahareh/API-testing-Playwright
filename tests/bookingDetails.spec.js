@@ -1,7 +1,13 @@
 const { test, expect } = require('@playwright/test');
+const { createValidBooking } = require('../test-data/test-data');
 
-test('should return 200 when getting an existing booking by id',async({request})=>{
-    const response = await request.get('/booking/11'); ///asd how to have different ids
+test.only('should return 200 when getting an existing booking by id',async({request})=>{
+    const body = createValidBooking();
+    const postResponse = await request.post('/booking', {data: body});
+    const postResponseBody = await postResponse.json();
+    const id = postResponseBody.bookingid;
+    console.log(id);
+    const response = await request.get(`/booking/${id}`); 
     expect(response.status()).toBe(200) 
 });
 

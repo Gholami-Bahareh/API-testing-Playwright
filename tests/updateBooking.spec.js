@@ -2,7 +2,7 @@
     const { randomNumber , randomString , tokenGenerate } = require('../utils/reusableMethods');
     const { createValidBooking } = require('../test-data/test-data');
 
-    test.only('should update booking successfully using valid token',async({request})=>{
+    test('should update booking successfully using valid token',async({request})=>{
         const postBody = createValidBooking();
 
         const postResponse = await request.post('/booking', {data: postBody}); 

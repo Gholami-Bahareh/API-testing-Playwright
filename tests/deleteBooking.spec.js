@@ -2,7 +2,7 @@
     const { randomNumber , randomString , tokenGenerate } = require('../utils/reusableMethods');
     const { createValidBooking } = require('../test-data/test-data');
 
-    test.only('should delete booking when token is valid',async({request})=>{
+    test('should delete booking when token is valid',async({request})=>{
         const postBody = createValidBooking();
 
         const postResponse = await request.post('/booking', {data: postBody}); 
@@ -25,7 +25,7 @@
 
     });
 
-    test.only('should return 403 when deleting booking with invalid token',async({request})=>{
+    test('should return 403 when deleting booking with invalid token',async({request})=>{
         const postBody = createValidBooking();
         const postResponse = await request.post('/booking', {data: postBody}); 
         expect(postResponse.status()).toBe(200); 
@@ -45,7 +45,7 @@
 
     });
 
-    test.only('should return 405 when deleting an already deleted booking',async({request})=>{
+    test('should return 405 when deleting an already deleted booking',async({request})=>{
         const postBody = createValidBooking();
 
         const postResponse = await request.post('/booking', {data: postBody}); 

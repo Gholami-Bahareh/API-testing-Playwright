@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const { createValidBooking } = require('../test-data/test-data');
 
-test.only('should return 200 when getting an existing booking by id',async({request})=>{
+test    ('should return 200 when getting an existing booking by id',async({request})=>{
     const body = createValidBooking();
     const postResponse = await request.post('/booking', {data: body});
     const postResponseBody = await postResponse.json();
@@ -11,19 +11,22 @@ test.only('should return 200 when getting an existing booking by id',async({requ
     expect(response.status()).toBe(200) 
 });
 
-test('should return json content type when getting a booking',async({request})=>{
-    const response = await request.get('/booking/11');
+test.only('should return json content type when getting a booking',async({request})=>{
+    const body = createValidBooking();
+    const postResponse = await request.post('/booking', {data: body});
+    const postResponseBody = await postResponse.json();
+    const id = postResponseBody.bookingid;
+    const response = await request.get(`/booking/${id}`); 
     const headers = response.headers();
     expect(headers['content-type']).toContain('application/json');
 });
 
-test('should return booking details with correct structure when booking exists',async({request})=>{
+test.only('should return booking details with correct structure when booking exists',async({request})=>{
     const id = 11
     const response = await request.get(`/booking/${id}`);  //the best, scalable
     // const response = await request.get('/booking/'+id); //ok but kind of old
     // const response = await request.get('/booking/'+`${id}`); //the worst!
     const body = await response.json();
-    // console.log(body);
     expect(body).toBeInstanceOf(Object);  //better than below one for API 
     //expect(typeof body).toBe('object')
     expect(body).toHaveProperty('firstname');

@@ -11,7 +11,8 @@ test('should create booking and return booking id and details',async({request})=
     expect(headers['content-type']).toContain('application/json');
     const responseBody = await response.json();
     console.log(responseBody);
-    expect(responseBody).toBeInstanceOf(Object);  
+    expect(responseBody).toBeInstanceOf(Object);
+    expect(typeof responseBody).toBe('object');
     expect(responseBody).toHaveProperty('bookingid');
     expect(responseBody).toHaveProperty('booking.firstname');
     expect(responseBody).toHaveProperty('booking.lastname');

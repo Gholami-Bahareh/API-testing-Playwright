@@ -1,6 +1,7 @@
     const { test, expect } = require('@playwright/test');
     const { randomNumber , randomString , tokenGenerate } = require('../utils/reusableMethods');
     const { createValidBooking } = require('../test-data/test-data');
+    const BookingApi = require('../api/booking.api');
 
     test('should update booking successfully using valid token',async({request})=>{
         const postBody = createValidBooking();
@@ -36,7 +37,9 @@
         expect(putBody.firstname).toBe('666');
         expect(putBody.lastname).toBe('666');
 
-        const getAfterPutResponse =await request.get(`/booking/${id}`);
+        const bookingApi = new BookingApi();
+        const getAfterPutResponse = await bookingApi.getBookingById(request, id);
+
         const putResponseBody = await getAfterPutResponse.json();
         expect(putResponseBody.firstname).toBe('666');
         console.log(putResponseBody);

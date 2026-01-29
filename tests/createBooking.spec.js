@@ -1,11 +1,13 @@
 const { test, expect } = require('@playwright/test');
 const { randomString , randomNumber } = require('../utils/reusableMethods');
 const { createValidBooking , createIncompeleteBooking } = require('../test-data/test-data');
+const BookingApi = require('../api/booking.api');
 
 test.only('should create booking and return booking id and details',async({request})=>{
     const body = createValidBooking();
 //  const response = await request.post(`${BASE_URL}/booking`, {data: requestBody});
-    const response = await request.post('/booking', {data: body}); 
+    const bookingApi = new BookingApi();
+    const response = await bookingApi.createBooking(request, body);
     expect(response.status()).toBe(200); 
     const headers = response.headers();
     expect(headers['content-type']).toContain('application/json');
@@ -31,9 +33,10 @@ test.only('should create booking and return booking id and details',async({reque
 });
 
 
-test('should return 500 when creating booking with incomplete request body',async({request})=>{
+test.only('should return 500 when creating booking with incomplete request body',async({request})=>{
     const body = createIncompeleteBooking();
-    const response = await request.post('/booking', {data: body}); 
+    const bookingApi = new BookingApi();
+    const response = await bookingApi.createBooking(request, body);
     expect(response.status()).toBe(500); 
 
 });

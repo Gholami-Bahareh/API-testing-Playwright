@@ -2,24 +2,27 @@ const { test, expect } = require('@playwright/test');
 const { createValidBooking } = require('../test-data/test-data');
 const BookingApi = require('../api/booking.api');
 
-test('should return 200 when getting an existing booking by id',async({request})=>{
+test.only('should return 200 when getting an existing booking by id',async({request})=>{
     const body = createValidBooking();
-    const postResponse = await request.post('/booking', {data: body});
+    const bookingApi = new BookingApi();
+
+    const postResponse = await bookingApi.createBooking(request, body);
     const postResponseBody = await postResponse.json();
     const id = postResponseBody.bookingid;
     console.log(id);
 
-    const bookingApi = new BookingApi();
     const response = await bookingApi.getBookingById(request, id);
     expect(response.status()).toBe(200) 
 });
 
-test('should return json content type when getting a booking',async({request})=>{
+test.only('should return json content type when getting a booking',async({request})=>{
     const body = createValidBooking();
-    const postResponse = await request.post('/booking', {data: body});
+    const bookingApi = new BookingApi();
+
+    const postResponse = await bookingApi.createBooking(request, body);
     const postResponseBody = await postResponse.json();
     const id = postResponseBody.bookingid;
-    const bookingApi = new BookingApi();
+    
     const response = await bookingApi.getBookingById(request, id);
     const headers = response.headers();
     expect(headers['content-type']).toContain('application/json');

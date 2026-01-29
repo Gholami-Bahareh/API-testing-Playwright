@@ -3,7 +3,7 @@ const { randomString , randomNumber } = require('../utils/reusableMethods');
 const { createValidBooking , createIncompeleteBooking } = require('../test-data/test-data');
 const BookingApi = require('../api/booking.api');
 
-test.only('should create booking and return booking id and details',async({request})=>{
+test('should create booking and return booking id and details',async({request})=>{
     const body = createValidBooking();
 //  const response = await request.post(`${BASE_URL}/booking`, {data: requestBody});
     const bookingApi = new BookingApi();
@@ -33,7 +33,7 @@ test.only('should create booking and return booking id and details',async({reque
 });
 
 
-test.only('should return 500 when creating booking with incomplete request body',async({request})=>{
+test('should return 500 when creating booking with incomplete request body',async({request})=>{
     const body = createIncompeleteBooking();
     const bookingApi = new BookingApi();
     const response = await bookingApi.createBooking(request, body);

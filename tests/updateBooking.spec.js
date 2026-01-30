@@ -3,45 +3,42 @@
     const { createValidBooking } = require('../test-data/test-data');
     const BookingApi = require('../api/booking.api');
 
-    test('should update booking successfully using valid token',async({request})=>{
+    test.only('should update booking successfully using valid token',async({request})=>{
         const postBody = createValidBooking();
+        const bookingApi = new BookingApi();
+        
 
-        const postResponse = await request.post('/booking', {data: postBody}); 
+        const postResponse = await bookingApi.createBooking(request , postBody)
         expect(postResponse.status()).toBe(200); 
         const postResponseBody = await postResponse.json();
         const id = postResponseBody.bookingid;
 
         const token =  await tokenGenerate(request);
 
-        // const putResponse = await request.put('/booking', {headers:putHeader , data: putBody}); 
-        const putResponse = await request.put(`/booking/${id}`, {
-            headers:{  
-            'Content-Type': 'application/json', 
-            'Accept': 'application/json',
-            'Cookie': `token=${token}`
-             } ,
-         data:{
-                    firstname:'666',
-                    lastname:'666',
-                    totalprice:666,
+        const updatebody = {
+                    firstname:randomString(5),
+                    lastname:randomString(5),
+                    totalprice:randomNumber(5),
                     depositpaid:true,
                     bookingdates:{
                         checkin:"2016-06-06",
                         checkout:"2016-06-16"
                     }
-                }}
-            );
+                }; 
 
+        // const putResponse = await request.put('/booking', {headers:putHeader , data: putBody}); 
+        const putResponse = await bookingApi.updateBooking(request, id, updatebody, token);
+        
         expect(putResponse.status()).toBe(200);
         const putBody = await putResponse.json();
-        expect(putBody.firstname).toBe('666');
-        expect(putBody.lastname).toBe('666');
+        expect(putBody.firstname).toBe(updatebody.firstname);
+        expect(putBody.lastname).toBe(updatebody.lastname);
 
-        const bookingApi = new BookingApi();
+        
         const getAfterPutResponse = await bookingApi.getBookingById(request, id);
 
         const putResponseBody = await getAfterPutResponse.json();
-        expect(putResponseBody.firstname).toBe('666');
+        expect(putResponseBody.firstname).toBe(updatebody.firstname);
         console.log(putResponseBody);
     });
 

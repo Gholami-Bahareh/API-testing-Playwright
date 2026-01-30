@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const { createValidBooking } = require('../test-data/test-data');
 const BookingApi = require('../api/booking.api');
 
-test.only('should return 200 when getting an existing booking by id',async({request})=>{
+test('should return 200 when getting an existing booking by id',async({request})=>{
     const body = createValidBooking();
     const bookingApi = new BookingApi();
 
@@ -15,7 +15,7 @@ test.only('should return 200 when getting an existing booking by id',async({requ
     expect(response.status()).toBe(200) 
 });
 
-test.only('should return json content type when getting a booking',async({request})=>{
+test('should return json content type when getting a booking',async({request})=>{
     const body = createValidBooking();
     const bookingApi = new BookingApi();
 

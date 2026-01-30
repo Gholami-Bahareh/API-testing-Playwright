@@ -7,19 +7,28 @@ class BookingApi {
     return response;
   }
 
-
   async getBookingById(request, id) {
     const response = await request.get(`/booking/${id}`);
     return response;
   }
 
-
-  async updateBooking(request, id, body, token) {
-    throw new Error('Not implemented yet');
+  async updateBooking(request, id, body , token ) {
+    const response = await request.put(`/booking/${id}`, {
+            headers:{  
+            'Content-Type': 'application/json', 
+            'Accept': 'application/json',
+            'Cookie': `token=${token}`
+             } , data: body
+            });
+    return response;
   }
 
   async deleteBooking(request, id, token) {
-    throw new Error('Not implemented yet');
+    const response = await request.delete(`/booking/${id}`,{headers:
+      {
+        'Cookie': `token=${token}`
+      }});
+    return response;
   }
 
 }
